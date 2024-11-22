@@ -1,11 +1,17 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './TodoItem.css';
 
-const TodoItem = ({ task, deleteTask, toggleTask, getTaskById }) => {
+const TodoItem = ({ task, deleteTask, toggleTask }) => {
   const priorityMapping = {
     0: 'high',
     1: 'medium',
     2: 'low',
+  };  
+  
+  const navigate = useNavigate();
+
+  const getTaskById = (id) => {
+    navigate(`/task/${id}`);
   };
 
   return (

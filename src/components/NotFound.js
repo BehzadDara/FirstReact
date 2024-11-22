@@ -1,4 +1,3 @@
-import React from 'react';
 import Card from '../layouts/Card';
 
 function NotFound() {

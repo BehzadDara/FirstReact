@@ -1,4 +1,3 @@
-import React from 'react';
 import ValidationModal from '../layouts/ValidationModal';
 
 const Modal = ({ closeModal, open }) => {
