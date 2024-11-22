@@ -15,7 +15,7 @@ const Home = () => {
     deleteTask, 
     toggleTask, 
     isLoading, 
-  } = useTaskService(currentPage, 10, undefined);
+  } = useTaskService(currentPage, 5, undefined);
 
   return (
     <div className="home-container">

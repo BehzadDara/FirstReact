@@ -2,7 +2,7 @@ import './Pagination.css';
 
 const Pagination = ({ currentPage, totalCount, setCurrentPage }) => {
 
-    const totalPages = Math.ceil(totalCount / 10);
+    const totalPages = Math.ceil(totalCount / 5);
 
     const handlePageChange = (page) => {
         if (page >= 1 && page <= totalPages) {

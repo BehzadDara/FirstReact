@@ -12,6 +12,12 @@ const Header = () => {
           <Button color="inherit" component={Link} to="/about" sx={{ fontSize: '1.2rem' }}>
             About
           </Button>
+          <Button color="inherit" component={Link} to="/counter" sx={{ fontSize: '1.2rem' }}>
+            Counter
+          </Button>
+          <Button color="inherit" component={Link} to="/calculation" sx={{ fontSize: '1.2rem' }}>
+            Calculation
+          </Button>
         </Container>
       </Toolbar>
     </AppBar>
