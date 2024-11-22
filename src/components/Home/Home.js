@@ -1,41 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Modal from "../TaskEmptyModal";
 import TodoList from "../TodoList/TodoList";
-import useTaskStore from "../../zustand/store";
+import useTaskService from "../../TaskService";
 import "./Home.css";
 
 const Home = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [taskTitle, setTaskTitle] = useState("");
   const [taskPriority, setTaskPriority] = useState("medium");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const navigate = useNavigate();
 
   const { 
     tasks, 
-    fetchTasks, 
+    totalCount, 
     addTask, 
     deleteTask, 
     toggleTask, 
-    setPage, 
-    loading, 
-    totalCount, 
-    pageNumber, 
-    pageSize 
-  } = useTaskStore();
+    isLoading, 
+  } = useTaskService(currentPage, 10, undefined);
 
-  const totalPages = Math.ceil(totalCount / pageSize);
+  const totalPages = Math.ceil(totalCount / 10);
 
   const priorityMapping = {
     high: 0,
     medium: 1,
     low: 2,
   };
-
-  useEffect(() => {
-    fetchTasks();
-  }, [fetchTasks, pageNumber]);
 
   const handleAddTask = () => {
     if (!taskTitle.trim()) {
@@ -48,24 +41,18 @@ const Home = () => {
       priority: priorityMapping[taskPriority],
     };
 
-    addTask(newTask).then(() => {
-      fetchTasks();
-    });
+    addTask(newTask);
 
     setTaskTitle("");
     setTaskPriority("medium");
   };
 
   const handleDeleteTask = (taskId) => {
-    deleteTask(taskId).then(() => {
-      fetchTasks();
-    });
+    deleteTask(taskId);
   };
 
   const handleToggleTask = (taskId) => {
-    toggleTask(taskId).then(() => {
-      fetchTasks();
-    });
+    toggleTask(taskId);
   };
 
   const handleGetTaskById = (id) => {
@@ -76,7 +63,7 @@ const Home = () => {
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
-      setPage(page);
+      setCurrentPage(page);
     }
   };
 
@@ -102,14 +89,18 @@ const Home = () => {
           </select>
         </div>
 
-        <button className="add-task-button" onClick={handleAddTask}>
+        <button 
+          className="add-task-button" 
+          onClick={handleAddTask} 
+          disabled={isLoading}
+        >
           Add Task
         </button>
       </div>
 
       {modalOpen && <Modal closeModal={closeModal} />}
 
-      {loading ? (
+      {isLoading ? (
         <div className="loading-spinner-container">
           <div className="loading-spinner"></div>
         </div>
@@ -122,18 +113,17 @@ const Home = () => {
             handleGetTaskById={handleGetTaskById}
           />
 
-          {}
           <div className="pagination">
             <button
-              onClick={() => handlePageChange(pageNumber - 1)}
-              disabled={pageNumber <= 1}
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
             >
               Previous
             </button>
-            <span>Page {pageNumber} of {totalPages}</span>
+            <span>Page {currentPage} of {totalPages}</span>
             <button
-              onClick={() => handlePageChange(pageNumber + 1)}
-              disabled={pageNumber >= totalPages}
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
             >
               Next
             </button>

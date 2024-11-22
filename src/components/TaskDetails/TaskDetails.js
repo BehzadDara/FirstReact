@@ -1,16 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import useTaskStore from '../../zustand/store';
+import useTaskService from "../../TaskService";
 import TaskCard from '../TaskCard/TaskCard';
 import Card from '../../layouts/Card';
 
 const TaskDetails = () => {
   const { id } = useParams();
-  const { getTaskById, selectedTask, toggleTask, deleteTask } = useTaskStore();
-
-  useEffect(() => {
-    getTaskById(id);
-  }, [id, getTaskById]);
+  
+  const { selectedTask, toggleTask, deleteTask } = useTaskService(undefined, undefined, id);
 
   return (
     <div>
