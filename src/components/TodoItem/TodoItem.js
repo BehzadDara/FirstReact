@@ -1,7 +1,7 @@
 import React from 'react';
 import './TodoItem.css';
 
-const TodoItem = ({ task, deleteTask, toggleTask }) => {
+const TodoItem = ({ task, deleteTask, toggleTask, getTaskById }) => {
   const priorityMapping = {
     0: 'high',
     1: 'medium',
@@ -17,7 +17,7 @@ const TodoItem = ({ task, deleteTask, toggleTask }) => {
         className="task-checkbox"
       />
       <span className={`priority-bullet ${priorityMapping[task.priority]}`}></span>
-      <span className={`task-text ${task.isDone ? 'line-through' : ''}`}>
+      <span className={`task-text ${task.isDone ? 'line-through' : ''}`} onClick={() => getTaskById(task.id)}>
         {task.title}
       </span>
       <button onClick={() => deleteTask(task.id)} className="delete-button">

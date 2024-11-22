@@ -19,11 +19,11 @@ const useTaskStore = create((set, get) => ({
   pageNumber: 1, 
   pageSize: 10,
   totalCount: 0,
+  selectedTask: null,
 
   fetchTasks: async () => {
     set({ loading: true });
     const { pageNumber, pageSize } = get();
-
     try {
       const response = await fetch(`${API_BASE_URL}/tasks?pageNumber=${pageNumber}&pageSize=${pageSize}`);
       const result = await response.json();
@@ -85,9 +85,21 @@ const useTaskStore = create((set, get) => ({
   },
 
   setPage: (newPageNumber) => {
-    console.log("Setting page");
     set({ pageNumber: newPageNumber });
-    set().fetchTasks();
+    get().fetchTasks();
+  },
+  
+  getTaskById: async (id) => {
+    set({ loading: true });
+    try {
+      const response = await fetch(`${API_BASE_URL}/tasks/${id}`);
+      if (!response.ok) throw new Error('Failed to fetch task by ID');
+      const task = await response.json();
+      set({ selectedTask: task, loading: false });
+    } catch (error) {
+      console.error("Error fetching task by ID:", error);
+      set({ loading: false });
+    }
   },
 }));
 

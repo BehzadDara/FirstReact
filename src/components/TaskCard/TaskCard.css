@@ -1,0 +1,95 @@
+.task-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 20px auto;
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .priority-bullet {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .priority-bullet.high {
+    background-color: #ff4d4d;
+  }
+  
+  .priority-bullet.medium {
+    background-color: #ffbf00;
+  }
+  
+  .priority-bullet.low {
+    background-color: #4d9eff;
+  }
+  
+  .task-title {
+    flex-grow: 1;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-left: 10px;
+  }
+  
+  .delete-detail-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #e74c3c;
+    font-size: 20px;
+  }
+  
+  .delete-detail-button:hover {
+    color: #c0392b;
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+  }
+  
+  .card-body {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .status-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .status {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .status.done {
+    color: green;
+  }
+  
+  .status.not-done {
+    color: red;
+  }
+  
+  .change-container {
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  
+  .change-container:hover {
+    color: #574caf;
+    transform: scale(1.1);
+  }
+  

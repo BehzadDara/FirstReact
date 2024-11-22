@@ -2,7 +2,7 @@ import React from 'react';
 import TodoItem from '../TodoItem/TodoItem';
 import './TodoList.css';
 
-const TodoList = ({ tasks, handleDeleteTask, handleToggleTask }) => {
+const TodoList = ({ tasks, handleDeleteTask, handleToggleTask, handleGetTaskById }) => {
   return (
     <div className="todo-list">
       {tasks.length > 0 ? (
@@ -12,6 +12,7 @@ const TodoList = ({ tasks, handleDeleteTask, handleToggleTask }) => {
             task={task}
             deleteTask={handleDeleteTask}
             toggleTask={handleToggleTask}
+            getTaskById={handleGetTaskById}
           />
         ))
       ) : (

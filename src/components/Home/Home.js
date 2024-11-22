@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import Modal from "../TaskEmptyModal";
 import TodoList from "../TodoList/TodoList";
 import useTaskStore from "../../zustand/store";
@@ -8,6 +9,8 @@ const Home = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [taskTitle, setTaskTitle] = useState("");
   const [taskPriority, setTaskPriority] = useState("medium");
+
+  const navigate = useNavigate();
 
   const { 
     tasks, 
@@ -65,6 +68,10 @@ const Home = () => {
     });
   };
 
+  const handleGetTaskById = (id) => {
+    navigate(`/task/${id}`);
+  };
+
   const closeModal = () => setModalOpen(false);
 
   const handlePageChange = (page) => {
@@ -112,6 +119,7 @@ const Home = () => {
             tasks={tasks}
             handleDeleteTask={handleDeleteTask}
             handleToggleTask={handleToggleTask}
+            handleGetTaskById={handleGetTaskById}
           />
 
           {}
