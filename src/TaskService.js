@@ -43,6 +43,10 @@ const useTaskService = (pageNumber, pageSize, taskId) => {
     queryKey: ['tasks', pageNumber, pageSize],
     queryFn: () => fetchTasks({ pageNumber, pageSize }),
     enabled: !!pageNumber && !!pageSize,
+    staleTime: 1000 * 60 * 5,  // 5 minutes: keeps the data fresh for a specified time for 5 minutes.
+    cacheTime: 1000 * 60 * 10, // 10 minutes: keeps the data in cache after unmounting the component for 10 minutes.
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
   });
 
   const isRefetching = useIsFetching({ queryKey: ['tasks'] }) > 0;
