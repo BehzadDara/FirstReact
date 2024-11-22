@@ -19,26 +19,16 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <AddTask
-        addTask={addTask}
-        isLoading={isLoading}
-      />
+      <AddTask addTask={addTask} isLoading={isLoading} />
+      
       {isLoading ? (
         <div className="loading-spinner-container">
           <div className="loading-spinner"></div>
         </div>
       ) : (
         <>
-        <TodoList
-          tasks={tasks}
-          deleteTask={deleteTask}
-          toggleTask={toggleTask}
-        />
-        <Pagination
-          currentPage={currentPage}
-          totalCount={totalCount}
-          setCurrentPage={setCurrentPage}
-        />
+          <TodoList tasks={tasks} deleteTask={deleteTask} toggleTask={toggleTask} />
+          <Pagination currentPage={currentPage} totalCount={totalCount} setCurrentPage={setCurrentPage} />
         </>
       )}
     </div>

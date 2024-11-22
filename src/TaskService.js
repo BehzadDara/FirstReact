@@ -1,5 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState, useEffect } from 'react';
+import { useQuery, useMutation, useQueryClient, useIsFetching } from '@tanstack/react-query';
 
 const API_BASE_URL = "http://localhost:5079";
 
@@ -38,52 +37,44 @@ const fetchTaskById = async (id) => {
 };
 
 const useTaskService = (pageNumber, pageSize, taskId) => {
-
-  useEffect(() => {
-    if (taskId) {
-      setShouldFetchTask(true);
-    }
-  }, [taskId]);
-
   const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading: isQueryLoading } = useQuery({
     queryKey: ['tasks', pageNumber, pageSize],
     queryFn: () => fetchTasks({ pageNumber, pageSize }),
     enabled: !!pageNumber && !!pageSize,
   });
 
+  const isRefetching = useIsFetching({ queryKey: ['tasks'] }) > 0;
+
   const mutationAddTask = useMutation({
     mutationFn: addTask,
     onSuccess: () => {
       queryClient.invalidateQueries(['tasks']);
-    },
+    }
   });
 
   const mutationDeleteTask = useMutation({
     mutationFn: deleteTask,
     onSuccess: () => {
       queryClient.invalidateQueries(['tasks']);
-    },
+    }
   });
 
   const mutationToggleTask = useMutation({
     mutationFn: toggleTask,
     onSuccess: () => {
       queryClient.invalidateQueries(['tasks']);
-    },
+    }
   });
-
-  const [shouldFetchTask, setShouldFetchTask] = useState(true);
 
   const { data: selectedTask } = useQuery({
     queryKey: ['task', taskId],
     queryFn: () => fetchTaskById(taskId),
-    enabled: !!taskId && shouldFetchTask,
+    enabled: !!taskId,
   });
 
   const handleToggleTask = (taskId) => {
-    setShouldFetchTask(false);
     mutationToggleTask.mutate(taskId);
   };
 
@@ -94,8 +85,9 @@ const useTaskService = (pageNumber, pageSize, taskId) => {
     addTask: mutationAddTask.mutate,
     deleteTask: mutationDeleteTask.mutate,
     toggleTask: handleToggleTask,
-    isLoading,
+    isLoading: isQueryLoading || isRefetching,
   };
 };
 
 export default useTaskService;
+
