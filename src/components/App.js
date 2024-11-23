@@ -5,6 +5,7 @@ import TaskDetails from './TaskDetails/TaskDetails';
 import About from './About';
 import NotFound from './NotFound';
 import Counter from './Counter';
+import Timer from './Timer';
 import Calculation from './Calculation';
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/task/:id" element={<TaskDetails />} />
         <Route path="/counter" element={<Counter />} />
         <Route path="/calculation" element={<Calculation />} />
+        <Route path="/timer" element={<Timer />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
