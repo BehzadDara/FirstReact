@@ -8,6 +8,7 @@ import Counter from './Counter';
 import Timer from './Timer';
 import Calculation from './Calculation';
 import ColorGenerator from './ColorGenerator';
+import ColorPicker from './ColorPicker';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/calculation" element={<Calculation />} />
         <Route path="/timer" element={<Timer />} />
         <Route path="/colorGenerator" element={<ColorGenerator />} />
+        <Route path="/colorPicker" element={<ColorPicker />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
