@@ -21,6 +21,9 @@ const Header = () => {
           <Button color="inherit" component={Link} to="/timer" sx={{ fontSize: '1.2rem' }}>
             Timer
           </Button>
+          <Button color="inherit" component={Link} to="/colorGenerator" sx={{ fontSize: '1.2rem' }}>
+            Color Generator
+          </Button>
         </Container>
       </Toolbar>
     </AppBar>

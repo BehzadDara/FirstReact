@@ -7,6 +7,7 @@ import NotFound from './NotFound';
 import Counter from './Counter';
 import Timer from './Timer';
 import Calculation from './Calculation';
+import ColorGenerator from './ColorGenerator';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/counter" element={<Counter />} />
         <Route path="/calculation" element={<Calculation />} />
         <Route path="/timer" element={<Timer />} />
+        <Route path="/colorGenerator" element={<ColorGenerator />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
