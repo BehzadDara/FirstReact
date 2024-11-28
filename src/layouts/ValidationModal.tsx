@@ -1,9 +1,17 @@
+import React from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
 
-const ValidationModal = ({ title, message, closeModal }) => {
+interface ValidationModalProps {
+  open: boolean;
+  title: string;
+  message: string;
+  closeModal: () => void;
+}
+
+const ValidationModal: React.FC<ValidationModalProps> = ({ open, title, message, closeModal }) => {
   return (
     <Dialog
-      open={true}
+      open={open} 
       onClose={closeModal}
       sx={{
         '& .MuiDialog-paper': {

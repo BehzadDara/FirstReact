@@ -1,8 +1,16 @@
-import React, { useReducer } from "react"; // Used for managing complex state logic.
-
+import React, { useReducer } from "react";
 import { Box, Button, Typography, Container } from "@mui/material";
 
-function counterReducer(state, action) {
+interface CounterState {
+  count: number;
+}
+
+type CounterAction =
+  | { type: "increment" }
+  | { type: "decrement" }
+  | { type: "reset" };
+
+function counterReducer(state: CounterState, action: CounterAction): CounterState {
   switch (action.type) {
     case "increment":
       return { count: state.count + 1 };
@@ -15,7 +23,7 @@ function counterReducer(state, action) {
   }
 }
 
-function Counter() {
+const Counter: React.FC = () => {
   const [state, dispatch] = useReducer(counterReducer, { count: 0 });
 
   return (
@@ -71,6 +79,6 @@ function Counter() {
       </Box>
     </Container>
   );
-}
+};
 
 export default Counter;

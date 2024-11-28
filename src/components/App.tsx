@@ -1,16 +1,17 @@
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Header from './Header';
-import Home from './Home/Home';
-import TaskDetails from './TaskDetails/TaskDetails';
-import About from './About';
-import NotFound from './NotFound';
-import Counter from './Counter';
-import Timer from './Timer';
-import Calculation from './Calculation';
-import ColorGenerator from './ColorGenerator';
-import ColorPicker from './ColorPicker';
+import Header from './Header.tsx';
+import Home from './Home/Home.tsx';
+import TaskDetails from './TaskDetails/TaskDetails.tsx';
+import About from './About.tsx';
+import NotFound from './NotFound.tsx';
+import Counter from './Counter.tsx';
+import Timer from './Timer.tsx';
+import Calculation from './Calculation.tsx';
+import ColorGenerator from './ColorGenerator.tsx';
+import ColorPicker from './ColorPicker.tsx';
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <>
       <Header />

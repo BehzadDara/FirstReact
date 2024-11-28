@@ -2,9 +2,23 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './TaskCard.css';
 
-const TaskCard = ({ task, toggleTask, deleteTask }) => {
+interface Task {
+  id: number;
+  title: string;
+  isDone: boolean;
+  priority: number;
+}
+
+interface TaskCardProps {
+  task: Task;
+  toggleTask: (id: number) => Promise<void>;
+  deleteTask: (id: number) => Promise<void>;
+}
+
+const TaskCard: React.FC<TaskCardProps> = ({ task, toggleTask, deleteTask }) => {
   const navigate = useNavigate();
-  const priorityMapping = {
+  
+  const priorityMapping: { [key: number]: string } = {
     0: 'high',
     1: 'medium',
     2: 'low',

@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import * as signalR from "@microsoft/signalr";
 import { Box, Container, Typography, Button, TextField } from "@mui/material";
 
-const Timer = () => {
-  const [timer, setTimer] = useState(0);
-  const [status, setStatus] = useState("");
-  const [inputTime, setInputTime] = useState("");
-  const [isRunning, setIsRunning] = useState(false);
-  const [isInit, setIsInit] = useState(true);
-  const connectionRef = useRef(null);
+const Timer: React.FC = () => {
+  const [timer, setTimer] = useState<number>(0);
+  const [status, setStatus] = useState<string>("");
+  const [inputTime, setInputTime] = useState<string>("");
+  const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [isInit, setIsInit] = useState<boolean>(true);
+  const connectionRef = useRef<signalR.HubConnection | null>(null);
 
   useEffect(() => {
     const connection = new signalR.HubConnectionBuilder()
@@ -16,11 +16,11 @@ const Timer = () => {
       .withAutomaticReconnect()
       .build();
 
-    connection.on("TimerUpdate", (time) => {
+    connection.on("TimerUpdate", (time: number) => {
       setTimer(time);
     });
 
-    connection.on("TimerComplete", (message) => {
+    connection.on("TimerComplete", (message: string) => {
       setStatus(message);
       setIsRunning(false);
     });
@@ -40,7 +40,9 @@ const Timer = () => {
   }, []);
 
   const startTimer = async () => {
-    if (!inputTime || isNaN(inputTime) || inputTime <= 0) {
+    const parsedTime = parseInt(inputTime, 10);
+
+    if (!parsedTime || parsedTime <= 0) {
       setStatus("Please enter a valid positive number!");
       return;
     }
@@ -51,7 +53,7 @@ const Timer = () => {
     setTimer(0);
 
     try {
-      await connectionRef.current.invoke("StartTimer", parseInt(inputTime));
+      await connectionRef.current?.invoke("StartTimer", parsedTime);
     } catch (error) {
       console.error("Error starting timer: ", error);
       setIsRunning(false);
@@ -91,7 +93,7 @@ const Timer = () => {
           variant="h5"
           sx={{
             marginTop: 2,
-            color: isInit? "#9c27b0" : isRunning ? "#4caf50" : "#f44336",
+            color: isInit ? "#9c27b0" : isRunning ? "#4caf50" : "#f44336",
           }}
         >
           {`Time: ${timer}s`}

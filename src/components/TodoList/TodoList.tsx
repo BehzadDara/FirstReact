@@ -1,7 +1,21 @@
-import TodoItem from '../TodoItem/TodoItem';
+import React from 'react';
+import TodoItem from '../TodoItem/TodoItem.tsx';
 import './TodoList.css';
 
-const TodoList = ({ tasks, deleteTask, toggleTask }) => {
+interface Task {
+  id: number;
+  title: string;
+  isDone: boolean;
+  priority: number;
+}
+
+interface TodoListProps {
+  tasks: Task[];
+  deleteTask: (id: number) => void;
+  toggleTask: (id: number) => void;
+}
+
+const TodoList: React.FC<TodoListProps> = ({ tasks, deleteTask, toggleTask }) => {
   return (
     <div className="todo-list">
       {tasks.length > 0 ? (

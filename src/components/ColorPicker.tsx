@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { Box, Slider, Typography, Container, Card, CardContent } from "@mui/material";
 
-function ColorPicker() {
-  const [rgb, setRgb] = useState({ r: 0, g: 0, b: 0 });
+interface RGB {
+  r: number;
+  g: number;
+  b: number;
+}
 
-  const handleSliderChange = (color, value) => {
+const ColorPicker: React.FC = () => {
+  const [rgb, setRgb] = useState<RGB>({ r: 0, g: 0, b: 0 });
+
+  const handleSliderChange = (color: keyof RGB, value: number): void => {
     setRgb((prevRgb) => ({
       ...prevRgb,
       [color]: value,
@@ -28,7 +34,7 @@ function ColorPicker() {
           Color Picker
         </Typography>
 
-        {["r", "g", "b"].map((color) => (
+        {(["r", "g", "b"] as Array<keyof RGB>).map((color) => (
           <Box key={color} sx={{ marginBottom: 2 }}>
             <Typography variant="body1" sx={{ color: "#555" }}>
               {color.toUpperCase()} ({rgb[color]})
@@ -38,7 +44,7 @@ function ColorPicker() {
               min={0}
               max={255}
               step={1}
-              onChange={(e, newValue) => handleSliderChange(color, newValue)}
+              onChange={(e, newValue) => handleSliderChange(color, newValue as number)}
               sx={{
                 color: color === "r" ? "red" : color === "g" ? "green" : "blue",
               }}
@@ -53,10 +59,9 @@ function ColorPicker() {
             </Typography>
           </CardContent>
         </Card>
-        
       </Box>
     </Container>
   );
-}
+};
 
 export default ColorPicker;

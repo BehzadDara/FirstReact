@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from "react"; // used to optimize performance by memoizing the result of an expensive calculation. It prevents unnecessary recalculations of a value unless its dependencies change.
 import { Box, Button, Typography, Container } from "@mui/material";
 
-function ExpensiveCalculation(num) {
+function ExpensiveCalculation(num: number): number {
   return num * 2;
 }
 
-function Calculation() {
-  const [count, setCount] = useState(0);
-  const [value, setValue] = useState(0);
+const Calculation: React.FC = () => {
+  const [count, setCount] = useState<number>(0);
+  const [value, setValue] = useState<number>(0);
 
   const double = useMemo(() => ExpensiveCalculation(value), [value]);
 
@@ -23,7 +23,7 @@ function Calculation() {
         }}
       >
         <Typography variant="h4" sx={{ fontWeight: "bold", color: "#333" }}>
-            Calculation
+          Calculation
         </Typography>
         <Typography
           variant="h5"
@@ -66,6 +66,6 @@ function Calculation() {
       </Box>
     </Container>
   );
-}
+};
 
 export default Calculation;

@@ -1,19 +1,19 @@
 import React, { useState, useTransition } from "react"; // for smooth transition
 import { Box, Button, Typography, Container } from "@mui/material";
 
-const generateColors = (count) =>
+const generateColors = (count: number): string[] =>
   Array.from({ length: count }, () => {
     const randomColor = `rgb(
       ${Math.floor(Math.random() * 255)}, 
       ${Math.floor(Math.random() * 255)}, 
       ${Math.floor(Math.random() * 255)}
-      )`;
+    )`;
     return randomColor;
   });
 
-function ColorGenerator() {
-  const [colorCount] = useState(9);
-  const [colors, setColors] = useState(generateColors(colorCount));
+const ColorGenerator: React.FC = () => {
+  const [colorCount] = useState<number>(9);
+  const [colors, setColors] = useState<string[]>(generateColors(colorCount));
   const [isPending, startTransition] = useTransition();
 
   const handleGenerateColors = () => {
@@ -53,10 +53,9 @@ function ColorGenerator() {
             onClick={handleGenerateColors}
             disabled={isPending}
           >
-            {isPending ? "Generating Colors..." : "Generate Colors"} {}
+            {isPending ? "Generating Colors..." : "Generate Colors"}
           </Button>
         </Box>
-
         <Box
           sx={{
             marginTop: 4,
@@ -89,6 +88,6 @@ function ColorGenerator() {
       </Box>
     </Container>
   );
-}
+};
 
 export default ColorGenerator;
