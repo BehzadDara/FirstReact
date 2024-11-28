@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from "react";
+import React, { useState } from "react";
 import Modal from "../TaskEmptyModal.tsx";
 import './AddTask.css';
 
@@ -33,7 +32,7 @@ const AddTask: React.FC<AddTaskProps> = ({ addTask, isLoading }) => {
     addTask(newTask);
 
     setTaskTitle("");
-    setTaskPriority("medium");
+    setTaskPriority("medium"); 
   };
 
   const closeModal = () => setModalOpen(false);
@@ -67,7 +66,7 @@ const AddTask: React.FC<AddTaskProps> = ({ addTask, isLoading }) => {
         Add Task
       </button>
       
-      {modalOpen && <Modal closeModal={closeModal} />}
+      {modalOpen && <Modal closeModal={closeModal} open={modalOpen} />}
     </div>
   );
 };
