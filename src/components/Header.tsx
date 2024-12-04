@@ -12,7 +12,7 @@ const Header: React.FC = () => {
               display: 'flex',
               justifyContent: 'center',
               gap: { xs: 2, sm: 3, md: 5 },
-              flexWrap: 'wrap',
+              flexWrap: 'wrap'
             }}
           >
             <Button color="inherit" component={Link} to="/" sx={{ fontSize: '1.2rem' }}>
@@ -35,6 +35,9 @@ const Header: React.FC = () => {
             </Button>
             <Button color="inherit" component={Link} to="/colorPicker" sx={{ fontSize: '1.2rem' }}>
               Color Picker
+            </Button>
+            <Button color="inherit" component={Link} to="/colorSpectrumGenerator" sx={{ fontSize: '1.2rem' }}>
+              Color Spectrum Generator
             </Button>
           </Box>
         </Container>

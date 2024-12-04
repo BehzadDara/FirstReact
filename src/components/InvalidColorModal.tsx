@@ -6,15 +6,15 @@ interface ModalProps {
   open: boolean;
 }
 
-const TaskEmptyModal: React.FC<ModalProps> = ({ closeModal, open }) => {
+const InvalidColorModal: React.FC<ModalProps> = ({ closeModal, open }) => {
   return (
     <ValidationModal
       open={open}
       closeModal={closeModal}
-      title="Empty Input"
-      message="Please add text for the task."
+      title="Invalid Color"
+      message="Please enter a valid color."
     />
   );
 };
 
-export default TaskEmptyModal;
+export default InvalidColorModal;

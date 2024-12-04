@@ -44,7 +44,7 @@ const ColorPicker: React.FC = () => {
               min={0}
               max={255}
               step={1}
-              onChange={(e, newValue) => handleSliderChange(color, newValue as number)}
+              onChange={(_, newValue) => handleSliderChange(color, newValue as number)}
               sx={{
                 color: color === "r" ? "red" : color === "g" ? "green" : "blue",
               }}

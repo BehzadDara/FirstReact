@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Modal from "../TaskEmptyModal.tsx";
+import TaskEmptyModal from "../TaskEmptyModal.tsx";
 import './AddTask.css';
 
 interface AddTaskProps {
@@ -66,7 +66,7 @@ const AddTask: React.FC<AddTaskProps> = ({ addTask, isLoading }) => {
         Add Task
       </button>
       
-      {modalOpen && <Modal closeModal={closeModal} open={modalOpen} />}
+      {modalOpen && <TaskEmptyModal closeModal={closeModal} open={modalOpen} />}
     </div>
   );
 };
