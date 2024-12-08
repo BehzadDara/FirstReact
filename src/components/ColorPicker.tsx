@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, Slider, Typography, Container, Card, CardContent } from "@mui/material";
+import { getReadableTextColor } from "../ColorHelper.tsx";
 
 interface RGB {
   r: number;
@@ -54,7 +55,7 @@ const ColorPicker: React.FC = () => {
 
         <Card sx={{ backgroundColor: colorString, marginTop: 4, padding: 2 }}>
           <CardContent>
-            <Typography variant="h6" sx={{ textAlign: "center", color: "#fff" }}>
+            <Typography variant="h6" sx={{ textAlign: "center", color: getReadableTextColor([rgb.r,rgb.g,rgb.b]) }}>
               Color Preview
             </Typography>
           </CardContent>
