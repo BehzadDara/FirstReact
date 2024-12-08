@@ -69,6 +69,9 @@ const useTaskService = (pageNumber?: number, pageSize?: number, taskId?: number)
     enabled: !!pageNumber && !!pageSize,
     staleTime: 1000 * 60 * 5,  // 5 minutes
     cacheTime: 1000 * 60 * 10, // 10 minutes
+    // for 5 minutes the data is valid. 
+    // after stale finishes, the data is cached but it's not valid. 
+    // It means the data is shown from cache but the request sends to server and update the cached data.
     refetchOnWindowFocus: false,
     keepPreviousData: true,
   } as UseQueryOptions<TaskResponse, Error, TaskResponse>);
