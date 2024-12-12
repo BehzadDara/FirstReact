@@ -2,6 +2,10 @@ import { useQuery, useMutation, useQueryClient, useIsFetching, UseQueryOptions }
 
 const API_BASE_URL = "http://localhost:5079";
 
+const getAuthToken = () => {
+  return localStorage.getItem('token');
+};
+
 interface Task {
   id: number;
   title: string;
@@ -24,8 +28,21 @@ interface AddTaskParams {
   priority: number;
 }
 
+const addAuthHeader = (): Record<string, string> | undefined => {
+  const token = getAuthToken();
+  if (token) {
+    return { Authorization: `Bearer ${token}` };
+  }
+  return undefined;
+};
+
 const fetchTasks = async ({ currentPageNumber, currentPageSize }: FetchTasksParams): Promise<TaskResponse> => {
-  const response = await fetch(`${API_BASE_URL}/tasks?pageNumber=${currentPageNumber}&pageSize=${currentPageSize}`);
+  const response = await fetch(
+    `${API_BASE_URL}/tasks?pageNumber=${currentPageNumber}&pageSize=${currentPageSize}`,
+    {
+      headers: addAuthHeader(),
+    }
+  );
   if (!response.ok) throw new Error('Failed to fetch tasks');
   return response.json();
 };
@@ -33,7 +50,10 @@ const fetchTasks = async ({ currentPageNumber, currentPageSize }: FetchTasksPara
 const addTask = async (task: AddTaskParams): Promise<Task> => {
   const response = await fetch(`${API_BASE_URL}/tasks`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      ...addAuthHeader(),
+    },
     body: JSON.stringify(task),
   });
   if (!response.ok) throw new Error('Failed to add task');
@@ -41,18 +61,26 @@ const addTask = async (task: AddTaskParams): Promise<Task> => {
 };
 
 const deleteTask = async (id: number): Promise<void> => {
-  const response = await fetch(`${API_BASE_URL}/tasks/${id}`, { method: 'DELETE' });
+  const response = await fetch(`${API_BASE_URL}/tasks/${id}`, {
+    method: 'DELETE',
+    headers: addAuthHeader(),
+  });
   if (!response.ok) throw new Error('Failed to delete task');
 };
 
 const toggleTask = async (id: number): Promise<Task> => {
-  const response = await fetch(`${API_BASE_URL}/tasks/${id}`, { method: 'PATCH' });
+  const response = await fetch(`${API_BASE_URL}/tasks/${id}`, {
+    method: 'PATCH',
+    headers: addAuthHeader(),
+  });
   if (!response.ok) throw new Error('Failed to toggle task');
   return await response.json();
 };
 
 const fetchTaskById = async (id: number): Promise<Task> => {
-  const response = await fetch(`${API_BASE_URL}/tasks/${id}`);
+  const response = await fetch(`${API_BASE_URL}/tasks/${id}`, {
+    headers: addAuthHeader(),
+  });
   if (!response.ok) throw new Error('Failed to fetch task by ID');
   return await response.json();
 };
@@ -69,9 +97,6 @@ const useTaskService = (pageNumber?: number, pageSize?: number, taskId?: number)
     enabled: !!pageNumber && !!pageSize,
     staleTime: 1000 * 60 * 5,  // 5 minutes
     cacheTime: 1000 * 60 * 10, // 10 minutes
-    // for 5 minutes the data is valid. 
-    // after stale finishes, the data is cached but it's not valid. 
-    // It means the data is shown from cache but the request sends to server and update the cached data.
     refetchOnWindowFocus: false,
     keepPreviousData: true,
   } as UseQueryOptions<TaskResponse, Error, TaskResponse>);
