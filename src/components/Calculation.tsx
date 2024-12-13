@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react"; // used to optimize performance by memoizing the result of an expensive calculation. It prevents unnecessary recalculations of a value unless its dependencies change.
 import { Box, Button, Typography, Container } from "@mui/material";
+import withLogger from "../higherOrderComponents/withLogger.tsx";
 
 function ExpensiveCalculation(num: number): number {
   return num * 2;
@@ -68,4 +69,4 @@ const Calculation: React.FC = () => {
   );
 };
 
-export default Calculation;
+export default withLogger(Calculation);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Container, Button, Box } from '@mui/material';
+import withLogger from "../higherOrderComponents/withLogger.tsx";
 
 const Header: React.FC = () => {
   return (
@@ -46,4 +47,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default withLogger(Header);

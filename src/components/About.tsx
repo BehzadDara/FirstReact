@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '../layouts/Card.tsx';
+import withLogger from "../higherOrderComponents/withLogger.tsx";
 
 const About: React.FC = () => {
   return (
@@ -10,4 +11,4 @@ const About: React.FC = () => {
   );
 };
 
-export default About;
+export default withLogger(About);

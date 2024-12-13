@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '../layouts/Card.tsx';
+import withLogger from "../higherOrderComponents/withLogger.tsx";
 
 const NotFound: React.FC = () => {
   return (
@@ -7,4 +8,4 @@ const NotFound: React.FC = () => {
   );
 };
 
-export default NotFound;
+export default withLogger(NotFound);

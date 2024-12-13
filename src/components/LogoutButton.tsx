@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import withLogger from "../higherOrderComponents/withLogger.tsx";
 
 const LogoutButton: React.FC = () => {
   const navigate = useNavigate();
@@ -32,4 +33,4 @@ const LogoutButton: React.FC = () => {
   );
 };
 
-export default LogoutButton;
+export default withLogger(LogoutButton);

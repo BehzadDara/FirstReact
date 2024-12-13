@@ -1,5 +1,6 @@
 import React, { useState, useTransition } from "react"; // for smooth transition
 import { Box, Button, Typography, Container } from "@mui/material";
+import withLogger from "../higherOrderComponents/withLogger.tsx";
 
 const generateColors = (count: number): string[] =>
   Array.from({ length: count }, () => {
@@ -90,4 +91,4 @@ const ColorGenerator: React.FC = () => {
   );
 };
 
-export default ColorGenerator;
+export default withLogger(ColorGenerator);

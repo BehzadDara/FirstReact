@@ -12,6 +12,7 @@ import {
 import Values from "values.js";
 import InvalidColorModal from "./InvalidColorModal.tsx";
 import { getReadableTextColor } from "../ColorHelper.tsx";
+import withLogger from "../higherOrderComponents/withLogger.tsx";
 
 const ColorSpectrumGenerator: React.FC = () => {
   const [inputColor, setInputColor] = useState<string>("");
@@ -154,4 +155,4 @@ const ColorSpectrumGenerator: React.FC = () => {
   );
 };
 
-export default ColorSpectrumGenerator;
+export default withLogger(ColorSpectrumGenerator);

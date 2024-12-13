@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import useTaskService from '../../TaskService.tsx';
 import TaskCard from '../TaskCard/TaskCard.tsx';
 import Card from '../../layouts/Card.tsx';
+import withLogger from "../../higherOrderComponents/withLogger.tsx";
 
 const TaskDetails: React.FC = () => {
   const { id } = useParams<Record<string, string | undefined>>();
@@ -22,4 +23,4 @@ const TaskDetails: React.FC = () => {
   );
 };
 
-export default TaskDetails;
+export default withLogger(TaskDetails);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Slider, Typography, Container, Card, CardContent } from "@mui/material";
 import { getReadableTextColor } from "../ColorHelper.tsx";
+import withLogger from "../higherOrderComponents/withLogger.tsx";
 
 interface RGB {
   r: number;
@@ -65,4 +66,4 @@ const ColorPicker: React.FC = () => {
   );
 };
 
-export default ColorPicker;
+export default withLogger(ColorPicker);

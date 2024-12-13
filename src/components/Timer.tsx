@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as signalR from "@microsoft/signalr";
 import { Box, Container, Typography, Button, TextField } from "@mui/material";
+import withLogger from "../higherOrderComponents/withLogger.tsx";
 
 const Timer: React.FC = () => {
   const [timer, setTimer] = useState<number>(0);
@@ -144,4 +145,4 @@ const Timer: React.FC = () => {
   );
 };
 
-export default Timer;
+export default withLogger(Timer);

@@ -8,6 +8,7 @@ import {
   Link,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import withLogger from "../higherOrderComponents/withLogger.tsx";
 
 const LoginRegister: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -146,4 +147,4 @@ const LoginRegister: React.FC = () => {
   );
 };
 
-export default LoginRegister;
+export default withLogger(LoginRegister);

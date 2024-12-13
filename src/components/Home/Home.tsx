@@ -4,6 +4,7 @@ import TodoList from "../TodoList/TodoList.tsx";
 import Pagination from "../Pagination/Pagination.tsx";
 import useTaskService from "../../TaskService.tsx";
 import "./Home.css";
+import withLogger from "../../higherOrderComponents/withLogger.tsx";
 
 interface CreateTask {
   title: string;
@@ -56,4 +57,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default withLogger(Home);

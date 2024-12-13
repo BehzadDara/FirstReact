@@ -1,30 +1,10 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { Box, Button, Typography, Container } from "@mui/material";
-
-interface CounterState {
-  count: number;
-}
-
-type CounterAction =
-  | { type: "increment" }
-  | { type: "decrement" }
-  | { type: "reset" };
-
-function counterReducer(state: CounterState, action: CounterAction): CounterState {
-  switch (action.type) {
-    case "increment":
-      return { count: state.count + 1 };
-    case "decrement":
-      return { count: state.count - 1 };
-    case "reset":
-      return { count: 0 };
-    default:
-      throw new Error("Unknown action");
-  }
-}
+import { useCounter } from "../hooks/useCounter.ts";
+import withLogger from "../higherOrderComponents/withLogger.tsx";
 
 const Counter: React.FC = () => {
-  const [state, dispatch] = useReducer(counterReducer, { count: 0 });
+  const { count, increment, decrement, reset } = useCounter(0);
 
   return (
     <Container maxWidth="sm" sx={{ marginTop: 4 }}>
@@ -42,9 +22,9 @@ const Counter: React.FC = () => {
         </Typography>
         <Typography
           variant="h5"
-          sx={{ marginTop: 2, color: state.count >= 0 ? "#4caf50" : "#f44336" }}
+          sx={{ marginTop: 2, color: count >= 0 ? "#4caf50" : "#f44336" }}
         >
-          Count: {state.count}
+          Count: {count}
         </Typography>
         <Box
           sx={{
@@ -54,25 +34,13 @@ const Counter: React.FC = () => {
             marginTop: 3,
           }}
         >
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => dispatch({ type: "increment" })}
-          >
+          <Button variant="contained" color="primary" onClick={increment}>
             Increment
           </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => dispatch({ type: "decrement" })}
-          >
+          <Button variant="contained" color="secondary" onClick={decrement}>
             Decrement
           </Button>
-          <Button
-            variant="outlined"
-            color="error"
-            onClick={() => dispatch({ type: "reset" })}
-          >
+          <Button variant="outlined" color="error" onClick={reset}>
             Reset
           </Button>
         </Box>
@@ -81,4 +49,4 @@ const Counter: React.FC = () => {
   );
 };
 
-export default Counter;
+export default withLogger(Counter);
