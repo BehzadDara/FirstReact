@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import withLogger from "../higherOrderComponents/withLogger.tsx";
+import useAuthStore from "../stores/useAuthStore.ts"; 
 
 const LoginRegister: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,6 +18,8 @@ const LoginRegister: React.FC = () => {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  
+  const setToken = useAuthStore((state) => state.setToken);
 
   const handleToggleMode = () => {
     setIsLogin(!isLogin);
@@ -50,7 +53,7 @@ const LoginRegister: React.FC = () => {
 
       const data = await response.json();
       if (data.token) {
-        localStorage.setItem("token", data.token);
+        setToken(data.token);
         navigate("/");
       } else {
         setError("Authentication failed.");
