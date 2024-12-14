@@ -14,49 +14,37 @@ import ColorSpectrumGenerator from "./components/ColorSpectrumGenerator.tsx";
 import LoginRegister from "./components/LoginRegister.tsx";
 import LogoutButton from "./components/LogoutButton.tsx";
 
-const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const token = localStorage.getItem("token");
-
-  if (!token) {
-    return <Navigate to="/loginRegister" replace />;
-  }
-
-  return <>{children}</>;
-};
-
 const App: React.FC = () => {
   const location = useLocation();
-  const isLoginRegister = location.pathname === "/loginRegister";
+  const isLoggedIn = Boolean(localStorage.getItem("token"));
+  const isLoginRegisterPage = location.pathname === "/loginRegister";
 
   return (
     <>
-      {!isLoginRegister && <Header />}
+      {isLoggedIn && !isLoginRegisterPage && <Header />}
 
       <Routes>
         <Route path="/loginRegister" element={<LoginRegister />} />
 
-        <Route
-          path="*"
-          element={
-            <ProtectedRoute>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/task/:id" element={<TaskDetails />} />
-                <Route path="/counter" element={<Counter />} />
-                <Route path="/calculation" element={<Calculation />} />
-                <Route path="/timer" element={<Timer />} />
-                <Route path="/colorGenerator" element={<ColorGenerator />} />
-                <Route path="/colorPicker" element={<ColorPicker />} />
-                <Route path="/colorSpectrumGenerator" element={<ColorSpectrumGenerator />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </ProtectedRoute>
-          }
-        />
+        {isLoggedIn ? (
+          <>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/task/:id" element={<TaskDetails />} />
+            <Route path="/counter" element={<Counter />} />
+            <Route path="/calculation" element={<Calculation />} />
+            <Route path="/timer" element={<Timer />} />
+            <Route path="/colorGenerator" element={<ColorGenerator />} />
+            <Route path="/colorPicker" element={<ColorPicker />} />
+            <Route path="/colorSpectrumGenerator" element={<ColorSpectrumGenerator />} />
+            <Route path="*" element={<NotFound />} />
+          </>
+        ) : (
+          <Route path="*" element={<Navigate to="/loginRegister" replace />} />
+        )}
       </Routes>
 
-      {!isLoginRegister && <LogoutButton />}
+      {isLoggedIn && !isLoginRegisterPage && <LogoutButton />}
     </>
   );
 };

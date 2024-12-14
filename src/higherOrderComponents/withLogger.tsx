@@ -19,3 +19,5 @@ function withLogger<P extends React.JSX.IntrinsicAttributes>(
 }
 
 export default withLogger;
+
+// console.count
